@@ -1,0 +1,174 @@
+.mapa-container {
+  color: white;
+  font-family: 'Segoe UI', sans-serif;
+  padding: 60px 40px;
+  text-align: center;
+}
+
+.mapa-titulo {
+  font-size: 2.8rem;
+  color: #00BFFF;
+  margin-bottom: 40px;
+}
+
+.mapa-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 80px;
+  flex-wrap: wrap;
+  position: relative;
+}
+
+.mapa-imagem {
+  position: relative;
+  width: 900px;
+  max-width: 100%;
+}
+
+.escola-imagem {
+  width: 100%;
+  border-radius: 14px;
+  opacity: 0.5;
+}
+
+.sensor {
+  position: absolute;
+  width: 42px;
+  height: 42px;
+  background-color: #FF8C00;
+  border-radius: 50%;
+  border: 2px solid #FFA500;
+  background-image: url('/img/thermo-icon.svg');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 24px;
+  box-shadow: 0 0 12px #FFA500;
+  transition: transform 0.2s;
+}
+
+.sensor:hover {
+  transform: scale(1.15);
+}
+
+.painel-info {
+  background-color: #111A2B;
+  border: 1px solid #1E3A5F;
+  padding: 30px 36px;
+  border-radius: 16px;
+  max-width: 280px;
+  text-align: left;
+  font-size: 1rem;
+}
+
+.sensor-nome {
+  font-size: 1.3rem;
+  color: #FFA500;
+  margin-bottom: 10px;
+}
+
+.sensor-leituras {
+  font-size: 0.95rem;
+  color: #00BFFF;
+  margin-bottom: 12px;
+}
+
+.sensor-valores {
+  font-size: 2rem;
+  font-weight: bold;
+  margin-bottom: 12px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.sensor-status {
+  font-size: 1.05rem;
+  color: #00BFFF;
+}
+
+.sensor-status .ativo {
+  color: #00FF7F;
+  font-weight: bold;
+}
+
+.sensor {
+  transition: transform 0.2s, box-shadow 0.2s;
+  cursor: pointer;
+}
+
+.sensor:hover {
+  transform: scale(1.1);
+  box-shadow: 0 0 12px #ffd700;
+}
+
+.sensor.ativo {
+  background-color: #00FF7F;
+  border: 2px solid #00FFAA;
+  box-shadow: 0 0 15px #00FFAA;
+}
+
+.sensor-status .alerta {
+  color: #FF4500;
+  font-weight: bold;
+}
+/* Estilo para cada status */
+.sensor.ativo {
+  background-color: #00FF7F;
+  border: 2px solid #00FFAA;
+  box-shadow: 0 0 15px #00FFAA;
+}
+
+.sensor.alerta {
+  background-color: #FFA500;
+  border: 2px solid #FF8C00;
+  box-shadow: 0 0 15px #FFA500;
+}
+
+.sensor.offline {
+  background-color: #ffffff;
+  border: 2px solid #555;
+  box-shadow: 0 0 5px #444;
+  opacity: 0.7;
+}
+
+/* Modal */
+.modal-sensor {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(10, 10, 15, 0.75);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.modal-conteudo {
+  background-color: #111A2B;
+  padding: 70px;
+  border-radius: 12px;
+  border: 1px solid #1E3A5F;
+  color: white;
+  text-align: left;
+  min-width: 280px;
+  position: relative;
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+.fechar-btn {
+  position: absolute;
+  top: 10px;
+  right: 20px;
+  background: none;
+  border: none;
+  font-size: 22px;
+  color: #ccc;
+  cursor: pointer;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: scale(0.9); }
+  to { opacity: 1; transform: scale(1); }
+}

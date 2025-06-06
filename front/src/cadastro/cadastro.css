@@ -1,0 +1,187 @@
+/* Reset e base */
+body {
+  margin: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #0f172a;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+/* Container central */
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem;
+  width: 100%;
+}
+
+/* Caixa do formulário */
+.form-box {
+  padding: 40px 35px;
+  border-radius: 16px;
+  box-shadow: 0 0 25px rgba(0, 216, 255, 0.2);
+  width: 100%;
+  max-width: 500px; /* Aumentado de 380px para 500px */
+  display: flex;
+  flex-direction: column;
+  color: white;
+  animation: fadeIn 0.8s ease;
+}
+
+
+/* Título */
+.form-box h2 {
+  color: #f97316;
+  margin-bottom: 5px;
+  text-align: center;
+  font-size: 1.5rem;
+}
+
+/* Subtítulo */
+.subtitle {
+  color: #38bdf8;
+  margin-bottom: 25px;
+  font-size: 0.9rem;
+  text-align: center;
+}
+
+/* Grupo de input com ícone */
+.input-group {
+  display: flex;
+  align-items: center;
+  background-color: #0f172a;
+  border: 1px solid #00d8ff;
+  border-radius: 8px;
+  margin-bottom: 15px;
+  padding: 10px 12px;
+  transition: border-color 0.3s ease;
+}
+
+.input-group:focus-within {
+  border-color: #38bdf8;
+}
+
+.icon {
+  margin-right: 10px;
+  color: #38bdf8;
+  font-size: 1.2rem;
+}
+
+.input {
+  background: transparent;
+  border: none;
+  outline: none;
+  color: white;
+  width: 100%;
+  font-size: 0.95rem;
+}
+
+.input::placeholder {
+  color: #94a3b8;
+}
+
+/* Tipo de usuário */
+.user-type {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 15px;
+  color: #38bdf8;
+  font-size: 0.9rem;
+}
+
+.user-type label {
+  margin-bottom: 5px;
+}
+
+/* Select */
+.select {
+  padding: 10px;
+  border: 1px solid #38bdf8;
+  border-radius: 6px;
+  background-color: #0f172a;
+  color: white;
+  margin-bottom: 20px;
+  font-size: 0.95rem;
+  appearance: none;
+}
+
+.select option {
+  background-color: #1e293b;
+  color: #e2e8f0;
+}
+
+/* Botão cadastrar */
+.btn-cadastrar {
+  background-color: #f97316;
+  color: white;
+  padding: 0.7rem;
+  border: none;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.3s ease, transform 0.2s ease;
+  width: 100%;
+  font-size: 1rem;
+}
+
+.btn-cadastrar:hover {
+  background-color: #f97316;
+  transform: scale(1.02);
+}
+
+/* Redirecionamento */
+.redirect-login {
+  text-align: center;
+  margin-top: 1.2rem;
+  font-size: 0.9rem;
+  color: #38bdf8;
+}
+
+.redirect-link {
+  color: #0ea5e9;
+  text-decoration: underline;
+  cursor: pointer;
+  margin-left: 5px;
+}
+
+.redirect-link:hover {
+  color: #38bdf8;
+}
+
+/* Mensagem de sucesso */
+.mensagem-sucesso {
+  color: #22c55e;
+  text-align: center;
+  margin-top: 20px;
+  font-weight: bold;
+  font-size: 0.95rem;
+}
+
+/* Animação de entrada */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(15px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Responsivo para telas pequenas */
+@media (max-width: 420px) {
+  .form-box {
+    padding: 20px 15px;
+    width: 100%;
+  }
+
+  .input-group,
+  .select,
+  .btn-cadastrar {
+    font-size: 0.9rem;
+  }
+}

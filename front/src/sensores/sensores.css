@@ -1,0 +1,147 @@
+body {
+  margin: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #0d1117;
+  color: #ffffff;
+}
+
+.sensor-container {
+  padding: 2rem;
+}
+
+.sensor-title {
+  font-size: 2rem;
+  color: #3ec9f0;
+  margin-bottom: 1.5rem;
+}
+
+.sensor-table {
+  width: 100%;
+  border-collapse: collapse;
+  color: #ffffff;
+}
+
+.sensor-table th,
+.sensor-table td {
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid #1c1c1c;
+  text-align: left;
+}
+
+.sensor-table th {
+  color: #3ec9f0;
+  font-weight: 500;
+}
+
+.ativo {
+  color: #00c07b;
+}
+
+.inativo {
+  color: #f39c12;
+}
+
+.laranja {
+  color: #f39c12;
+}
+
+/* Centraliza o botão Cadastrar Sensor */
+.sensor-actions {
+  margin-top: 2rem;
+  display: flex;
+  justify-content: center;
+}
+
+/* Estilo do botão Cadastrar Sensor */
+.btn-cadastrar {
+  padding: 0.75rem 1.5rem;
+  background-color: transparent;
+  color: #f39c12;
+  border: 2px solid #f39c12;
+  border-radius: 6px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.btn-cadastrar:hover {
+  background-color: #f39c12;
+  color: #0d1117;
+}
+
+/* Formulário */
+.formulario {
+  display: flex;
+  flex-direction: column;
+  margin-top: 1.5rem;
+  padding: 1rem;
+  border-radius: 8px;
+  gap: 0.8rem;
+  max-width: 980px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.formulario input,
+.formulario select {
+  padding: 0.6rem;
+  background-color: #0d1117;
+  border: 1px solid #3ec9f0;
+  color: white;
+  border-radius: 4px;
+  font-size: 0.95rem;
+}
+
+.formulario input::placeholder {
+  color: #aaa;
+}
+
+.btn-salvar {
+  padding: 0.7rem;
+  background-color: #3ec9f0;
+  color: #0d1117;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: 0.3s ease;
+}
+
+.btn-salvar:hover {
+  background-color: #26a1c4;
+}
+
+/* Botão Remover */
+.btn-remover {
+  background-color: transparent;
+  color: #ff5e5e;
+  border: 1px solid #ff5e5e;
+  padding: 0.4rem 0.8rem;
+  border-radius: 4px;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.btn-remover:hover {
+  background-color: #ff5e5e;
+  color: #0d1117;
+}
+
+/* Botão Editar */
+.btn-editar {
+  background-color: transparent;
+  color: #3ec9f0;
+  border: 1px solid #3ec9f0;
+  padding: 0.4rem 0.8rem;
+  border-radius: 4px;
+  font-size: 0.85rem;
+  cursor: pointer;
+  margin-left: 0.5rem;
+  transition: 0.2s ease;
+}
+
+.btn-editar:hover {
+  background-color: #3ec9f0;
+  color: #0d1117;
+}

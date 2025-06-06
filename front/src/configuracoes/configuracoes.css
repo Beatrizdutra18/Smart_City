@@ -1,0 +1,160 @@
+body {
+  font-family: Arial, sans-serif;
+  color: white;
+  background: transparent;
+}
+
+.config-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 30px;
+  background-color: transparent;
+  border-radius: 12px;
+}
+
+.config-title {
+  text-align: center;
+  color: #4fc3f7;
+  margin-bottom: 30px;
+  font-size: 28px;
+}
+
+.config-section {
+  border: 1px solid #4fc3f7;
+  border-radius: 10px;
+  padding: 20px;
+  margin-bottom: 15px; /* cards mais próximos */
+}
+
+.config-section h3 {
+  color: #4fc3f7;
+  margin-bottom: 12px;
+  font-size: 20px;
+}
+
+.config-option {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.config-option-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 30px;
+}
+
+.config-option-row > div {
+  flex: 1;
+}
+
+select {
+  background-color: #0d1117;
+  color: white;
+  border: 1px solid #4fc3f7;
+  border-radius: 5px;
+  padding: 6px;
+  font-size: 16px;
+}
+
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 50px;
+  height: 24px;
+}
+
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  transition: 0.4s;
+  border-radius: 34px;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 18px;
+  width: 18px;
+  left: 3px;
+  bottom: 3px;
+  background-color: white;
+  transition: 0.4s;
+  border-radius: 50%;
+}
+
+input:checked + .slider {
+  background-color: #ff6f00;
+}
+
+input:checked + .slider:before {
+  transform: translateX(26px);
+}
+
+.btn-warning {
+  background-color: #ff6f00;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 6px;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.btn-test {
+  background-color: #ff6f00;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 6px;
+  color: white;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.config-actions {
+  display: flex;
+  justify-content: center;  /* centraliza os botões */
+  gap: 12px;                /* espaço entre os botões */
+  margin-top: 20px;
+}
+
+.btn-save, .btn-reset {
+  padding: 14px 28px; /* um pouco mais largos */
+  border-radius: 6px;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.btn-save {
+  background-color: #ff6f00;
+  border: none;
+  color: white;
+}
+
+.btn-reset {
+  background-color: #2196f3;
+  border: none;
+  color: white;
+}
+
+.config-grid {
+  display: flex;
+  gap: 15px; /* reduzido para juntar mais os cards */
+  margin-bottom: 15px; /* reduzido */
+}
+
+.config-grid .config-section {
+  flex: 1;
+}
