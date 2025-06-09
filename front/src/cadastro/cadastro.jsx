@@ -19,6 +19,8 @@ export default function Cadastro() {
   };
 
   return (
+
+  <div className="body">
     <div className="container">
       <form className="form-box" onSubmit={handleSubmit}>
         <h2>CADASTRO DE USUÁRIO</h2>
@@ -81,6 +83,7 @@ export default function Cadastro() {
 
         {mensagem && <p className="mensagem-sucesso">{mensagem}</p>}
       </form>
+    </div>
     </div>
   );
 }

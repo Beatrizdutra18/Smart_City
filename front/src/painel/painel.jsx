@@ -3,7 +3,7 @@ import axios from "axios";
 import "./painel.css";
 
 export default function PainelControle() {
-  const [sensores, setSensores] = useState([]); // guardar sensores
+  const [sensores, setSensores] = useState([]);
   const [onlineCount, setOnlineCount] = useState(0);
   const [offlineCount, setOfflineCount] = useState(0);
   const [mediaTemp, setMediaTemp] = useState(null);
@@ -11,22 +11,16 @@ export default function PainelControle() {
   const [ultimaAtualizacao, setUltimaAtualizacao] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  // const token = localStorage.getItem("token");
-
-  useEffect(() => {
-    // if (!token) return;
-
+  const fetchSensores = () => {
     axios
       .get("http://localhost:8000/api/sensores/")
       .then((res) => {
         const sensoresData = res.data;
-        setSensores(sensoresData); // salva a lista completa
+        setSensores(sensoresData);
 
         const online = sensoresData.filter((s) => s.status === "Ativo");
-        const offline = sensoresData.length - online.length;
-
         setOnlineCount(online.length);
-        setOfflineCount(offline);
+        setOfflineCount(sensoresData.length - online.length);
 
         const tempSum = online.reduce((acc, cur) => acc + (cur.temperatura ?? 0), 0);
         const umidSum = online.reduce((acc, cur) => acc + (cur.umidade ?? 0), 0);
@@ -35,11 +29,7 @@ export default function PainelControle() {
         setMediaUmidade(online.length ? (umidSum / online.length).toFixed(0) : null);
 
         const sensor1 = sensoresData.find((s) => s.id === 1);
-        if (sensor1 && sensor1.ultima_atualizacao) {
-          setUltimaAtualizacao(sensor1.ultima_atualizacao);
-        } else {
-          setUltimaAtualizacao("N/A");
-        }
+        setUltimaAtualizacao(sensor1?.ultima_atualizacao || "N/A");
 
         setLoading(false);
       })
@@ -47,7 +37,30 @@ export default function PainelControle() {
         console.error("Erro ao buscar sensores:", err);
         setLoading(false);
       });
+  };
+
+  useEffect(() => {
+    fetchSensores();
   }, []);
+
+  const handleRemoveSensor = (id) => {
+    if (window.confirm("Deseja realmente remover este sensor?")) {
+      axios
+        .delete(`http://localhost:8000/api/sensores/${id}/`)
+        .then(() => {
+          fetchSensores(); // Atualiza lista após remoção
+        })
+        .catch((err) => {
+          console.error("Erro ao remover sensor:", err);
+          alert("Erro ao remover sensor.");
+        });
+    }
+  };
+
+  const handleEditSensor = (id) => {
+    // Redireciona para página de edição
+    window.location.href = `/editar-sensor/${id}`;
+  };
 
   if (loading) return <p>Carregando painel...</p>;
 
@@ -83,12 +96,11 @@ export default function PainelControle() {
           <div className="card">
             <h3>Última Atualização</h3>
             <p>Sensor 1</p>
-            <p>{ultimaAtualizacao ?? "--"}</p>
+            <p>{ultimaAtualizacao}</p>
           </div>
         </section>
 
-        {/* Lista dos sensores */}
-        <section className="lista-sensores">
+        <section className="tabela-sensores">
           <h2>Lista de Sensores</h2>
           {sensores.length === 0 ? (
             <p>Nenhum sensor encontrado.</p>
@@ -101,18 +113,25 @@ export default function PainelControle() {
                   <th>Status</th>
                   <th>Temperatura</th>
                   <th>Umidade</th>
-                  <th>Última Atualização</th>
+                  <th>Latitude</th>
+                  <th>Longitude</th>
+                  <th>Ações</th>
                 </tr>
               </thead>
               <tbody>
                 {sensores.map((sensor) => (
                   <tr key={sensor.id}>
                     <td>{sensor.id}</td>
-                    <td>{sensor.nome || "N/D"}</td>
+                    <td>{sensor.sensor || "N/D"}</td>
                     <td>{sensor.status}</td>
-                    <td>{sensor.temperatura != null ? `${sensor.temperatura}°C` : "N/D"}</td>
-                    <td>{sensor.umidade != null ? `${sensor.umidade}%` : "N/D"}</td>
-                    <td>{sensor.ultima_atualizacao || "N/D"}</td>
+                    <td>{sensor.temperatura ?? "N/D"}</td>
+                    <td>{sensor.umidade ?? "N/D"}</td>
+                    <td>{sensor.latitude || "N/D"}</td>
+                    <td>{sensor.longitude || "N/D"}</td>
+                    <td>
+                      <button className="btn-editar" onClick={() => handleEditSensor(sensor.id)}>Editar</button>
+                      <button className="btn-remover" onClick={() => handleRemoveSensor(sensor.id)}>Remover</button>
+                    </td>
                   </tr>
                 ))}
               </tbody>

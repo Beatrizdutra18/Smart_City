@@ -9,6 +9,7 @@ urlpatterns = [
     path('sensores/<int:pk>/', SensorDetailView.as_view(), name='sensor-detail'),
     path('ambientes/', AmbienteViewSet.as_view()),
     path('historico/', HistoricoViewSet.as_view()),
+    path('historico-all/', HistoricoGetAll.as_view()),
     path('importar/', upload, name='upload_xlsx'),
     path('grafico/<str:tipo>/', grafico_medida, name='grafico-medida'),
 ]

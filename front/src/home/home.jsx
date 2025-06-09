@@ -79,6 +79,14 @@ const Home = () => {
             <h2>ALERTAS</h2>
             <p>Alertas ativos: {alertasAtivos}</p>
           </button>
+          <button className="card" onClick={() => handleClick("/ambiente")}>
+            <h2>AMBIENTES</h2>
+            <p>Página que exibe e filtra ambientes da organização, com dados carregados do backend.</p>
+          </button>
+          <button className="card" onClick={() => handleClick("/historico")}>
+            <h2>HISTÓRICOS</h2>
+            <p>Alertas ativos: {alertasAtivos}</p>
+          </button>
           <button className="card" onClick={() => handleClick("/configuracoes")}>
             <h2>CONFIGURAÇÕES</h2>
             <p>Personalize idioma, tema, contas, notificações e permissões do sistema.</p>

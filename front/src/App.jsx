@@ -8,7 +8,11 @@ import Painel from './painel/painel';
 import Graficos from './graficos/graficos';
 import Mapa from './Mapa/mapa';
 import Alertas from './alertas/alertas';
+import Ambiente from './ambiente/ambiente';
+import Historico from './historico/historico';
 import Configuracoes from './configuracoes/configuracoes';
+
+
 
 function App() {
   return (
@@ -21,6 +25,8 @@ function App() {
       <Route path="/graficos" element={<Graficos />} />
       <Route path="/mapa" element={<Mapa />} />
       <Route path="/alertas" element={<Alertas />} />
+      <Route path="/ambiente" element={<Ambiente />} />
+      <Route path="/historico" element={<Historico />} />
       <Route path="/configuracoes" element={<Configuracoes />} />
     </Routes>
   );

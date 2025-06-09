@@ -1,12 +1,11 @@
 /* Reset e base */
-body {
+.body {
   margin: 0;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   background-color: #0f172a;
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
 }
 
 /* Container central */
@@ -15,7 +14,7 @@ body {
   justify-content: center;
   align-items: center;
   padding: 1rem;
-  width: 100%;
+  
 }
 
 /* Caixa do formulário */

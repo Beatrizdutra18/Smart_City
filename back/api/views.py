@@ -2,7 +2,7 @@
 from rest_framework import viewsets
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.permissions import IsAuthenticated
-from rest_framework.generics import ListCreateAPIView, RetrieveUpdateDestroyAPIView
+from rest_framework.generics import ListCreateAPIView, RetrieveUpdateDestroyAPIView, ListAPIView
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.response import Response
 from django.db.models import Subquery, OuterRef
@@ -48,6 +48,10 @@ class HistoricoViewSet(ListCreateAPIView):
             return queryset.filter(id__in=Subquery(sensores))
 
         return queryset
+    
+class HistoricoGetAll(ListAPIView):
+    queryset = Historico.objects.all()
+    serializer_class = HistoricoSerializer
 
 
 # Importação via planilha Excel

@@ -1,5 +1,3 @@
-/* painelcontrole.css */
-
 :root {
   --cor-fundo: #0e121a;
   --cor-painel: #1b2332;
@@ -98,4 +96,73 @@ body {
   margin: 6px 0;
   font-size: 1rem;
   color: var(--cor-subtexto);
+}
+
+.tabela-sensores {
+  width: 100%;
+  margin-top: 40px;
+}
+
+.tabela-sensores h2 {
+  font-size: 1.8rem;
+  margin-bottom: 20px;
+  color: #6ba4e7;
+}
+
+.tabela-sensores table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: #1a1f2e;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.05);
+}
+
+.tabela-sensores th,
+.tabela-sensores td {
+  padding: 14px 16px;
+  border-bottom: 1px solid #2c344a;
+  text-align: left;
+  color: var(--cor-subtexto);
+}
+
+.tabela-sensores th {
+  background-color: #222c3c;
+  color: #3aa0ff;
+  text-transform: uppercase;
+  font-size: 13px;
+}
+
+.tabela-sensores tbody tr:hover {
+  background-color: #273143;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.btn-editar,
+.btn-remover {
+  padding: 6px 12px;
+  margin: 4px 2px;
+  border: none;
+  border-radius: 6px;
+  font-weight: bold;
+  cursor: pointer;
+  font-size: 0.9rem;
+}
+
+.btn-editar {
+  background-color: #3aa0ff;
+  color: white;
+}
+
+.btn-editar:hover {
+  background-color: #2f7ed9;
+}
+
+.btn-remover {
+  background-color: #e53935;
+  color: white;
+}
+
+.btn-remover:hover {
+  background-color: #c62828;
 }
