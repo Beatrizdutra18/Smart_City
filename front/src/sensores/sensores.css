@@ -7,6 +7,8 @@ body {
 
 .sensor-container {
   padding: 2rem;
+  max-width: 1000px; /* Limita a largura máxima do container */
+  margin: 0 auto; /* Centraliza horizontalmente */
 }
 
 .sensor-title {
@@ -19,6 +21,7 @@ body {
   width: 100%;
   border-collapse: collapse;
   color: #ffffff;
+  margin-bottom: 1.5rem; /* Espaço abaixo da tabela */
 }
 
 .sensor-table th,
@@ -73,17 +76,17 @@ body {
 .formulario {
   display: flex;
   flex-direction: column;
-  margin-top: 1.5rem;
-  padding: 1rem;
-  border-radius: 8px;
   gap: 0.8rem;
-  max-width: 980px;
-  margin-left: auto;
-  margin-right: auto;
+  width: 100%;
+  padding: 0;
+  margin: 1.5rem 0 0 0; /* margem superior de 1.5rem, sem margens laterais e inferior */
+  max-width: none;
 }
 
 .formulario input,
 .formulario select {
+  width: 100%;  /* Preenche toda largura disponível */
+  box-sizing: border-box; /* Inclui padding na largura */
   padding: 0.6rem;
   background-color: #0d1117;
   border: 1px solid #3ec9f0;
@@ -112,15 +115,23 @@ body {
 }
 
 /* Botão Remover */
-.btn-remover {
-  background-color: transparent;
-  color: #ff5e5e;
-  border: 1px solid #ff5e5e;
-  padding: 0.4rem 0.8rem;
+.btn-remover,
+.btn-editar {
+  width: 90px;         /* largura fixa igual para ambos */
+  text-align: center;  /* centraliza o texto */
+  padding: 0.4rem 0;   /* mantem o padding vertical, remove horizontal para alinhar */
   border-radius: 4px;
   font-size: 0.85rem;
   cursor: pointer;
   transition: 0.2s ease;
+  border-style: solid;
+  border-width: 1px;
+  background-color: transparent;
+}
+
+.btn-remover {
+  color: #ff5e5e;
+  border-color: #ff5e5e;
 }
 
 .btn-remover:hover {
@@ -128,17 +139,10 @@ body {
   color: #0d1117;
 }
 
-/* Botão Editar */
 .btn-editar {
-  background-color: transparent;
   color: #3ec9f0;
-  border: 1px solid #3ec9f0;
-  padding: 0.4rem 0.8rem;
-  border-radius: 4px;
-  font-size: 0.85rem;
-  cursor: pointer;
+  border-color: #3ec9f0;
   margin-left: 0.5rem;
-  transition: 0.2s ease;
 }
 
 .btn-editar:hover {

@@ -1,36 +1,22 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import "./painel.css";
+import './painel.css'; // certifique-se de criar e importar o CSS correto
 
 export default function PainelControle() {
   const [sensores, setSensores] = useState([]);
-  const [onlineCount, setOnlineCount] = useState(0);
-  const [offlineCount, setOfflineCount] = useState(0);
-  const [mediaTemp, setMediaTemp] = useState(null);
-  const [mediaUmidade, setMediaUmidade] = useState(null);
-  const [ultimaAtualizacao, setUltimaAtualizacao] = useState(null);
+  const [filteredSensores, setFilteredSensores] = useState([]);
   const [loading, setLoading] = useState(true);
 
+  const [idFiltro, setIdFiltro] = useState("");
+  const [nomeFiltro, setNomeFiltro] = useState("");
+
   const fetchSensores = () => {
+    setLoading(true);
     axios
       .get("http://localhost:8000/api/sensores/")
       .then((res) => {
-        const sensoresData = res.data;
-        setSensores(sensoresData);
-
-        const online = sensoresData.filter((s) => s.status === "Ativo");
-        setOnlineCount(online.length);
-        setOfflineCount(sensoresData.length - online.length);
-
-        const tempSum = online.reduce((acc, cur) => acc + (cur.temperatura ?? 0), 0);
-        const umidSum = online.reduce((acc, cur) => acc + (cur.umidade ?? 0), 0);
-
-        setMediaTemp(online.length ? (tempSum / online.length).toFixed(1) : null);
-        setMediaUmidade(online.length ? (umidSum / online.length).toFixed(0) : null);
-
-        const sensor1 = sensoresData.find((s) => s.id === 1);
-        setUltimaAtualizacao(sensor1?.ultima_atualizacao || "N/A");
-
+        setSensores(res.data);
+        setFilteredSensores(res.data);
         setLoading(false);
       })
       .catch((err) => {
@@ -43,102 +29,70 @@ export default function PainelControle() {
     fetchSensores();
   }, []);
 
-  const handleRemoveSensor = (id) => {
-    if (window.confirm("Deseja realmente remover este sensor?")) {
-      axios
-        .delete(`http://localhost:8000/api/sensores/${id}/`)
-        .then(() => {
-          fetchSensores(); // Atualiza lista após remoção
-        })
-        .catch((err) => {
-          console.error("Erro ao remover sensor:", err);
-          alert("Erro ao remover sensor.");
-        });
-    }
+  const aplicarFiltro = () => {
+    const filtrados = sensores.filter((sensor) => {
+      return (
+        (idFiltro === "" || sensor.id.toString() === idFiltro) &&
+        (nomeFiltro === "" || (sensor.sensor && sensor.sensor === nomeFiltro))
+      );
+    });
+    setFilteredSensores(filtrados);
   };
-
-  const handleEditSensor = (id) => {
-    // Redireciona para página de edição
-    window.location.href = `/editar-sensor/${id}`;
-  };
-
-  if (loading) return <p>Carregando painel...</p>;
 
   return (
-    <div className="dashboard-container">
-      <header className="dashboard-header">
-        <h1>DASHBOARD</h1>
-        <p>Visão geral do projeto em tempo real</p>
-      </header>
+    <div className="painel-container">
+      <h1 className="painel-title">PAINEL DE CONTROLE</h1>
 
-      <main className="dashboard-main">
-        <section className="mapa-escola">
-          <img src="imagens/mapa-escola.png" alt="Mapa da escola" className="mapa-fundo" />
-          <div className="sensor-icon" style={{ top: "20%", left: "15%" }}>📶</div>
-          <div className="sensor-icon" style={{ top: "40%", left: "25%" }}>🌡️</div>
-          <div className="sensor-icon" style={{ top: "55%", left: "35%" }}>💧</div>
-          <div className="sensor-icon" style={{ top: "70%", left: "20%" }}>🔊</div>
-          <div className="sensor-icon" style={{ top: "30%", left: "65%" }}>🌡️</div>
-          <div className="sensor-icon" style={{ top: "60%", left: "75%" }}>🚛</div>
-        </section>
+      <div className="painel-filtro">
+        <select value={idFiltro} onChange={(e) => setIdFiltro(e.target.value)}>
+          <option value="">ID</option>
+          {[...new Set(sensores.map((s) => s.id))].map((id) => (
+            <option key={id} value={id}>{id}</option>
+          ))}
+        </select>
 
-        <section className="info-cards">
-          <div className="card">
-            <h3>Sensores</h3>
-            <p><strong>{onlineCount}</strong> Online</p>
-            <p><strong>{offlineCount}</strong> Offline</p>
-          </div>
-          <div className="card">
-            <h3>Média</h3>
-            <p><strong>{mediaTemp ?? "--"}°C</strong> Temperatura</p>
-            <p><strong>{mediaUmidade ?? "--"}%</strong> Umidade</p>
-          </div>
-          <div className="card">
-            <h3>Última Atualização</h3>
-            <p>Sensor 1</p>
-            <p>{ultimaAtualizacao}</p>
-          </div>
-        </section>
-
-        <section className="tabela-sensores">
-          <h2>Lista de Sensores</h2>
-          {sensores.length === 0 ? (
-            <p>Nenhum sensor encontrado.</p>
-          ) : (
-            <table>
-              <thead>
-                <tr>
-                  <th>ID</th>
-                  <th>Nome</th>
-                  <th>Status</th>
-                  <th>Temperatura</th>
-                  <th>Umidade</th>
-                  <th>Latitude</th>
-                  <th>Longitude</th>
-                  <th>Ações</th>
-                </tr>
-              </thead>
-              <tbody>
-                {sensores.map((sensor) => (
-                  <tr key={sensor.id}>
-                    <td>{sensor.id}</td>
-                    <td>{sensor.sensor || "N/D"}</td>
-                    <td>{sensor.status}</td>
-                    <td>{sensor.temperatura ?? "N/D"}</td>
-                    <td>{sensor.umidade ?? "N/D"}</td>
-                    <td>{sensor.latitude || "N/D"}</td>
-                    <td>{sensor.longitude || "N/D"}</td>
-                    <td>
-                      <button className="btn-editar" onClick={() => handleEditSensor(sensor.id)}>Editar</button>
-                      <button className="btn-remover" onClick={() => handleRemoveSensor(sensor.id)}>Remover</button>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
+        <select value={nomeFiltro} onChange={(e) => setNomeFiltro(e.target.value)}>
+          <option value="">NOME</option>
+          {[...new Set(sensores.map((s) => s.sensor))].map((nome) =>
+            nome && <option key={nome} value={nome}>{nome}</option>
           )}
-        </section>
-      </main>
+        </select>
+
+        <button onClick={aplicarFiltro}>FILTRAR</button>
+      </div>
+
+      <table className="painel-tabela">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Nome</th>
+            <th>Status</th>
+            <th>Temperatura</th>
+            <th>Umidade</th>
+            <th>Latitude</th>
+            <th>Longitude</th>
+          </tr>
+        </thead>
+        <tbody>
+          {loading ? (
+            <tr><td colSpan="7">Carregando...</td></tr>
+          ) : filteredSensores.length === 0 ? (
+            <tr><td colSpan="7">Nenhum sensor encontrado.</td></tr>
+          ) : (
+            filteredSensores.map((sensor) => (
+              <tr key={sensor.id}>
+                <td>{sensor.id}</td>
+                <td>{sensor.sensor || "N/D"}</td>
+                <td>{sensor.status}</td>
+                <td>{sensor.temperatura ?? "N/D"}</td>
+                <td>{sensor.umidade ?? "N/D"}</td>
+                <td>{sensor.latitude || "N/D"}</td>
+                <td>{sensor.longitude || "N/D"}</td>
+              </tr>
+            ))
+          )}
+        </tbody>
+      </table>
     </div>
   );
 }
