@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import './historico.css';
 import axios from 'axios';
+import { splitTimestamp } from './historico';
 
 const Historico = () => {
   const [historico, setHistorico] = useState([]);
@@ -28,16 +29,18 @@ const Historico = () => {
   }, []);
 
   const handleFiltrar = () => {
+    console.log(sensorFiltro)
     setError('');
     setLoading(true);
-
+    
     const filtrado = todosDados.filter(item => {
-      const dataMatch = dataInicio ? item.timestamp.startsWith(dataInicio) : true;
-      const sensorMatch = sensorFiltro ? item.sensor === sensorFiltro : true;
-      return dataMatch && sensorMatch;
+      const filterDateOrSensor = dataInicio ? splitTimestamp(item.timestamp) === dataInicio :
+       sensorFiltro  ? item.sensor === Number(sensorFiltro) : item;
+      return filterDateOrSensor;
     });
 
     setHistorico(filtrado);
+    console.log(filtrado)
     setLoading(false);
   };
 
@@ -71,7 +74,7 @@ const Historico = () => {
           />
         </label>
 
-        <button onClick={handleFiltrar}>Filtrar</button>
+        <button onClick={() => handleFiltrar()}>Filtrar</button>
       </div>
 
       {error && <div className="historico-erro">{error}</div>}

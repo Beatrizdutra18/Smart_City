@@ -1,65 +1,126 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import './painel.css'; // certifique-se de criar e importar o CSS correto
+import { motion, AnimatePresence } from "framer-motion";
+import { FiPlus, FiX } from "react-icons/fi";
+import './painel.css';
 
 export default function PainelControle() {
   const [sensores, setSensores] = useState([]);
-  const [filteredSensores, setFilteredSensores] = useState([]);
-  const [loading, setLoading] = useState(true);
-
-  const [idFiltro, setIdFiltro] = useState("");
-  const [nomeFiltro, setNomeFiltro] = useState("");
+  const [formData, setFormData] = useState({
+    sensor: "",
+    status: "",
+    temperatura: "",
+    umidade: "",
+    latitude: "",
+    longitude: "",
+  });
+  const [editId, setEditId] = useState(null);
+  const [mostrarFormulario, setMostrarFormulario] = useState(false);
 
   const fetchSensores = () => {
-    setLoading(true);
     axios
       .get("http://localhost:8000/api/sensores/")
-      .then((res) => {
-        setSensores(res.data);
-        setFilteredSensores(res.data);
-        setLoading(false);
-      })
-      .catch((err) => {
-        console.error("Erro ao buscar sensores:", err);
-        setLoading(false);
-      });
+      .then((res) => setSensores(res.data))
+      .catch((err) => console.error("Erro ao buscar sensores:", err));
   };
 
   useEffect(() => {
     fetchSensores();
   }, []);
 
-  const aplicarFiltro = () => {
-    const filtrados = sensores.filter((sensor) => {
-      return (
-        (idFiltro === "" || sensor.id.toString() === idFiltro) &&
-        (nomeFiltro === "" || (sensor.sensor && sensor.sensor === nomeFiltro))
-      );
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const limparFormulario = () => {
+    setFormData({
+      sensor: "",
+      status: "",
+      temperatura: "",
+      umidade: "",
+      latitude: "",
+      longitude: "",
     });
-    setFilteredSensores(filtrados);
+    setEditId(null);
+    setMostrarFormulario(false);
+  };
+
+  const handleSubmit = () => {
+    if (editId) {
+      axios
+        .put(`http://localhost:8000/api/sensores/${editId}/`, formData)
+        .then(() => {
+          fetchSensores();
+          limparFormulario();
+        })
+        .catch((err) => console.error("Erro ao editar:", err));
+    } else {
+      axios
+        .post("http://localhost:8000/api/sensores/", formData)
+        .then(() => {
+          fetchSensores();
+          limparFormulario();
+        })
+        .catch((err) => console.error("Erro ao cadastrar:", err));
+    }
+  };
+
+  const handleDelete = (id) => {
+    if (window.confirm("Tem certeza que deseja deletar?")) {
+      axios
+        .delete(`http://localhost:8000/api/sensores/${id}/`)
+        .then(() => fetchSensores())
+        .catch((err) => console.error("Erro ao deletar:", err));
+    }
+  };
+
+  const handleEdit = (sensor) => {
+    setEditId(sensor.id);
+    setFormData({
+      sensor: sensor.sensor || "",
+      status: sensor.status || "",
+      temperatura: sensor.temperatura || "",
+      umidade: sensor.umidade || "",
+      latitude: sensor.latitude || "",
+      longitude: sensor.longitude || "",
+    });
+    setMostrarFormulario(true);
   };
 
   return (
     <div className="painel-container">
       <h1 className="painel-title">PAINEL DE CONTROLE</h1>
 
-      <div className="painel-filtro">
-        <select value={idFiltro} onChange={(e) => setIdFiltro(e.target.value)}>
-          <option value="">ID</option>
-          {[...new Set(sensores.map((s) => s.id))].map((id) => (
-            <option key={id} value={id}>{id}</option>
-          ))}
-        </select>
+      <button
+        className="btn-cadastrar"
+        onClick={() => setMostrarFormulario(!mostrarFormulario)}
+      >
+        {mostrarFormulario ? <FiX size={18} /> : <FiPlus size={18} />}
+        {mostrarFormulario ? " Fechar Cadastro" : " Cadastrar Novo Sensor"}
+      </button>
 
-        <select value={nomeFiltro} onChange={(e) => setNomeFiltro(e.target.value)}>
-          <option value="">NOME</option>
-          {[...new Set(sensores.map((s) => s.sensor))].map((nome) =>
-            nome && <option key={nome} value={nome}>{nome}</option>
-          )}
-        </select>
-
-        <button onClick={aplicarFiltro}>FILTRAR</button>
-      </div>
+      <AnimatePresence>
+        {mostrarFormulario && (
+          <motion.div
+            className="painel-form"
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -10 }}
+            transition={{ duration: 0.3 }}
+          >
+            <input name="sensor" value={formData.sensor} onChange={handleChange} placeholder="Nome do sensor" />
+            <input name="status" value={formData.status} onChange={handleChange} placeholder="Status" />
+            <input name="temperatura" value={formData.temperatura} onChange={handleChange} placeholder="Temperatura" />
+            <input name="umidade" value={formData.umidade} onChange={handleChange} placeholder="Umidade" />
+            <input name="latitude" value={formData.latitude} onChange={handleChange} placeholder="Latitude" />
+            <input name="longitude" value={formData.longitude} onChange={handleChange} placeholder="Longitude" />
+            <button className="btn-enviar" onClick={handleSubmit}>
+              {editId ? "Salvar Edição" : "Cadastrar Sensor"}
+            </button>
+            <button className="btn-cancelar" onClick={limparFormulario}>Cancelar</button>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       <table className="painel-tabela">
         <thead>
@@ -71,26 +132,25 @@ export default function PainelControle() {
             <th>Umidade</th>
             <th>Latitude</th>
             <th>Longitude</th>
+            <th>Ações</th>
           </tr>
         </thead>
         <tbody>
-          {loading ? (
-            <tr><td colSpan="7">Carregando...</td></tr>
-          ) : filteredSensores.length === 0 ? (
-            <tr><td colSpan="7">Nenhum sensor encontrado.</td></tr>
-          ) : (
-            filteredSensores.map((sensor) => (
-              <tr key={sensor.id}>
-                <td>{sensor.id}</td>
-                <td>{sensor.sensor || "N/D"}</td>
-                <td>{sensor.status}</td>
-                <td>{sensor.temperatura ?? "N/D"}</td>
-                <td>{sensor.umidade ?? "N/D"}</td>
-                <td>{sensor.latitude || "N/D"}</td>
-                <td>{sensor.longitude || "N/D"}</td>
-              </tr>
-            ))
-          )}
+          {sensores.map((sensor) => (
+            <tr key={sensor.id}>
+              <td>{sensor.id}</td>
+              <td>{sensor.sensor || "N/D"}</td>
+              <td>{sensor.status || "N/D"}</td>
+              <td>{sensor.temperatura ?? "N/D"}</td>
+              <td>{sensor.umidade ?? "N/D"}</td>
+              <td>{sensor.latitude || "N/D"}</td>
+              <td>{sensor.longitude || "N/D"}</td>
+              <td>
+                <button className="btn-acao editar" onClick={() => handleEdit(sensor)}>Editar</button>
+                <button className="btn-acao deletar" onClick={() => handleDelete(sensor.id)}>Deletar</button>
+              </td>
+            </tr>
+          ))}
         </tbody>
       </table>
     </div>

@@ -10,13 +10,12 @@ const Home = () => {
   const [alertasAtivos, setAlertasAtivos] = useState(0);
 
   const token = localStorage.getItem("token");
+  console.log(token)
 
   useEffect(() => {
     if (token) {
       axios
-        .get("http://localhost:8000/api/sensores/", {
-          headers: { Authorization: `Bearer ${token}` },
-        })
+        .get("http://localhost:8000/api/sensores/")
         .then((res) => {
           const ativos = res.data.filter((sensor) => sensor.status === "Ativo");
           setSensoresAtivos(ativos.length);
@@ -26,9 +25,7 @@ const Home = () => {
         });
 
       axios
-        .get("http://localhost:8000/api/historico/", {
-          headers: { Authorization: `Bearer ${token}` },
-        })
+        .get("http://localhost:8000/api/historico/")
         .then((res) => {
           const alertas = res.data.filter((item) => item.alerta === true);
           setAlertasAtivos(alertas.length);
@@ -56,10 +53,6 @@ const Home = () => {
         </p>
 
         <div className="grid">
-          <button className="card" onClick={() => handleClick("/sensores")}>
-            <h2>SENSORES</h2>
-            <p>Sensores ativos: {sensoresAtivos}</p>
-          </button>
           <button className="card" onClick={() => handleClick("/painel")}>
             <h2>PAINEL DE CONTROLE</h2>
             <p>Visão rápida dos sensores e alertas em tempo real para monitoramento da cidade inteligente.</p>
@@ -74,10 +67,6 @@ const Home = () => {
           <button className="card" onClick={() => handleClick("/mapa")}>
             <h2>MAPA INTERATIVO</h2>
             <p>Mapa da escola com a posição geográfica dos sensores.</p>
-          </button>
-          <button className="card" onClick={() => handleClick("/alertas")}>
-            <h2>ALERTAS</h2>
-            <p>Alertas ativos: {alertasAtivos}</p>
           </button>
           <button className="card" onClick={() => handleClick("/ambiente")}>
             <h2>AMBIENTES</h2>
