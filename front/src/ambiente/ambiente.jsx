@@ -75,14 +75,15 @@ const Ambiente = () => {
     }
 
     if (editId) {
+      console.log(formData)
       // Editar ambiente
-      axios.put(`http://localhost:8000/api/ambientes/${editId}/`, formData)
+      axios.put(`http://localhost:8000/api/ambientes/${editId}`, formData)
         .then(() => {
           fetchAmbientes();
           limparFormulario();
         })
         .catch(err => {
-          console.error("Erro ao editar ambiente:", err.response?.data || err.message);
+          console.error("Erro ao editar ambiente:", err);
         });
     } else {
       // Cadastrar novo ambiente
@@ -110,7 +111,7 @@ const Ambiente = () => {
 
   const handleDelete = (id) => {
     if (window.confirm("Tem certeza que deseja deletar este ambiente?")) {
-      axios.delete(`http://localhost:8000/api/ambientes/${id}/`)
+      axios.delete(`http://localhost:8000/api/ambientes/${id}`)
         .then(() => fetchAmbientes())
         .catch(err => console.error("Erro ao deletar ambiente:", err));
     }

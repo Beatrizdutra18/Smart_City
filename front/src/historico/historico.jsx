@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import './historico.css';
 import axios from 'axios';
-import { splitTimestamp } from './historico';
+import splitTimestamp from './historico_methods';
 
 const Historico = () => {
   const [historico, setHistorico] = useState([]);

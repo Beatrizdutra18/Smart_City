@@ -21,13 +21,17 @@ class SensorListCreateView(ListCreateAPIView):
     serializer_class = SensorSerializer
 
 class SensorDetailView(RetrieveUpdateDestroyAPIView):
-    permission_classes = [IsAuthenticated]
+    # permission_classes = [IsAuthenticated]
     queryset = Sensor.objects.all()
     serializer_class = SensorSerializer
 
 
 # CRUD de Ambientes
 class AmbienteViewSet(ListCreateAPIView):
+    queryset = Ambiente.objects.all()
+    serializer_class = AmbienteSerializer
+
+class AmbienteUpdateDestroy(RetrieveUpdateDestroyAPIView):
     queryset = Ambiente.objects.all()
     serializer_class = AmbienteSerializer
 

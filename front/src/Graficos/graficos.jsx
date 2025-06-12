@@ -10,7 +10,8 @@ import {
   Tooltip,
   Legend,
   ResponsiveContainer,
-} from "recharts";
+} 
+from "recharts";
 import "./graficos.css";
 
 const dataLine = [

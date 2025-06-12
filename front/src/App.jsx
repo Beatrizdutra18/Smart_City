@@ -7,7 +7,7 @@ import Painel from './painel/painel';
 import Graficos from './graficos/graficos';
 import Mapa from './Mapa/mapa';
 import Ambiente from './ambiente/ambiente';
-import Historico from './historico/historico';
+import Historico from './historico/historico.jsx';
 import Configuracoes from './configuracoes/configuracoes';
 
 
