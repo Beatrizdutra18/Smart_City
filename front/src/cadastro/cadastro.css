@@ -22,7 +22,7 @@
 .form-box {
   padding: 40px 35px;
   border-radius: 16px;
-  box-shadow: 0 0 25px rgba(0, 216, 255, 0.2);
+  box-shadow: 0 0 25px #00d8ff;
   width: 100%;
   max-width: 500px; /* Aumentado de 380px para 500px */
   display: flex;
@@ -114,8 +114,8 @@
 }
 
 /* Botão cadastrar */
-.btn-cadastrar {
-  background-color: #f97316;
+.btn-cadastro {
+  background: linear-gradient(135deg, #f97316, #a5571f);
   color: white;
   padding: 0.7rem;
   border: none;
@@ -127,7 +127,7 @@
   font-size: 1rem;
 }
 
-.btn-cadastrar:hover {
+.btn-cadastro:hover {
   background-color: #f97316;
   transform: scale(1.02);
 }
@@ -181,7 +181,7 @@
 
   .input-group,
   .select,
-  .btn-cadastrar {
+  .btn-cadastro {
     font-size: 0.9rem;
   }
 }

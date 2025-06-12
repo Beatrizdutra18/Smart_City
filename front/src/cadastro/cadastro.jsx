@@ -69,7 +69,7 @@ export default function Cadastro() {
           <option>Professor</option>
         </select>
 
-        <button type="submit" className="btn-cadastrar">
+        <button type="submit" className="btn-cadastro">
           CADASTRAR
         </button>
 
