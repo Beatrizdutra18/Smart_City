@@ -46,7 +46,7 @@ export default function PainelControle() {
   };
 
   const handleSubmit = () => {
-  
+
     if (editId) {
       console.log(formData)
       axios
@@ -149,8 +149,10 @@ export default function PainelControle() {
               <td>{sensor.mac_address || "N/D"}</td>
               <td>{sensor.unidade_med || "N/D"}</td>
               <td>
-                <button className="btn-acao editar" onClick={() => handleEdit(sensor)}>Editar</button>
-                <button className="btn-acao deletar" onClick={() => handleDelete(sensor.id)}>Deletar</button>
+                <div className="acoes">
+                  <button className="btn-acao editar" onClick={() => handleEdit(sensor)}>Editar</button>
+                  <button className="btn-acao deletar" onClick={() => handleDelete(sensor.id)}>Deletar</button>
+                </div>
               </td>
             </tr>
           ))}

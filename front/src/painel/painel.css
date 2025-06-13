@@ -120,6 +120,12 @@ body {
 }
 
 /* Botões de ação (editar/deletar) */
+
+.acoes-painel {
+  display: flex;
+  gap: 10px;
+}
+
 .btn-acao {
   margin-right: 8px;
   padding: 8px 14px;
@@ -152,6 +158,12 @@ body {
 }
 
 /* Tabela */
+.acoes {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
 .painel-tabela {
   width: 100%;
   border-collapse: collapse;

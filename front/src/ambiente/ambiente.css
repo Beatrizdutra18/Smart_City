@@ -186,16 +186,22 @@
   border-bottom: none;
 }
 
+.acoes {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
 .btn-acao {
-  border: none;
-  padding: 8px 16px;
+  display: flex;
   margin-right: 8px;
-  border-radius: 12px;
-  font-weight: 600;
+  padding: 8px 14px;
+  border-radius: 10px;
   cursor: pointer;
-  transition: all 0.25s ease;
-  user-select: none;
+  border: none;
+  font-weight: bold;
   font-size: 0.9rem;
+  transition: background-color 0.3s, transform 0.2s;
 }
 
 .btn-acao.editar {
@@ -220,43 +226,4 @@
   background: linear-gradient(135deg, #b02a37, #8a1a23);
   box-shadow: 0 5px 12px rgba(176, 42, 55, 0.8);
   transform: translateY(-1px);
-}
-
-/* Responsividade simples */
-@media (max-width: 600px) {
-  .ambiente-filtro {
-    justify-content: stretch;
-  }
-
-  .ambiente-filtro select,
-  .ambiente-filtro button {
-    min-width: 100%;
-  }
-
-  .ambiente-form {
-    flex-direction: column;
-    gap: 15px;
-  }
-
-  .form-buttons {
-    justify-content: center;
-  }
-
-  .acoes-botoes {
-    display: flex;
-    gap: 12px;
-  }
-  
-  .btn-acao {
-    /* margin-right: 8px; */ /* remover para não atrapalhar o gap */
-    padding: 8px 14px;
-    border-radius: 10px;
-    cursor: pointer;
-    border: none;
-    font-weight: bold;
-    font-size: 0.9rem;
-    transition: background-color 0.3s, transform 0.2s;
-  }
-  
-  
 }

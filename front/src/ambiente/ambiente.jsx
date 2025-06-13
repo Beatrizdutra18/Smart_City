@@ -54,7 +54,7 @@ const Ambiente = () => {
   };
 
   const handleChange = (e) => {
-    setFormData({...formData, [e.target.name]: e.target.value});
+    setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
   const limparFormulario = () => {
@@ -207,8 +207,10 @@ const Ambiente = () => {
                 <td>{item.ni}</td>
                 <td>{item.responsavel}</td>
                 <td>
-                  <button className="btn-acao editar" onClick={() => handleEdit(item)}>Editar</button>
-                  <button className="btn-acao deletar" onClick={() => handleDelete(item.id)}>Deletar</button>
+                  <div className="acoes">
+                    <button className="btn-acao editar" onClick={() => handleEdit(item)}>Editar</button>
+                    <button className="btn-acao deletar" onClick={() => handleDelete(item.id)}>Deletar</button>
+                  </div>
                 </td>
               </tr>
             ))
