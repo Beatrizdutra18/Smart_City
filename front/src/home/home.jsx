@@ -56,6 +56,7 @@ const Home = () => {
           <button className="card" onClick={() => handleClick("/painel")}>
             <h2>PAINEL DE CONTROLE</h2>
             <p>Visão rápida dos sensores e alertas em tempo real para monitoramento da cidade inteligente.</p>
+            <p>Alertas ativos: {alertasAtivos}</p>
           </button>
           <button className="card" onClick={() => handleClick("/graficos")}>
             <h2>GRÁFICOS COMPARATIVOS</h2>
@@ -67,6 +68,7 @@ const Home = () => {
           <button className="card" onClick={() => handleClick("/mapa")}>
             <h2>MAPA INTERATIVO</h2>
             <p>Mapa da escola com a posição geográfica dos sensores.</p>
+            <p>Sensores ativos: {sensoresAtivos}</p>
           </button>
           <button className="card" onClick={() => handleClick("/ambiente")}>
             <h2>AMBIENTES</h2>
@@ -74,7 +76,7 @@ const Home = () => {
           </button>
           <button className="card" onClick={() => handleClick("/historico")}>
             <h2>HISTÓRICOS</h2>
-            <p>Alertas ativos: {alertasAtivos}</p>
+            <p>A página exibe os registros de medições dos sensores, permitindo filtrar por data de início e sensor para facilitar a análise de dados.</p>
           </button>
           <button className="card" onClick={() => handleClick("/configuracoes")}>
             <h2>CONFIGURAÇÕES</h2>
