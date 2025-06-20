@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import "./configuracoes.css";
+import { useNavigate } from "react-router-dom";
 
 const Configuracoes = () => {
   const [idioma, setIdioma] = useState("Português");
@@ -14,6 +15,8 @@ const Configuracoes = () => {
     sonoro: false,
   });
   const [permissao, setPermissao] = useState("");
+
+  const navigate = useNavigate();
 
   const salvarConfiguracoes = () => {
     const dados = {
@@ -44,6 +47,11 @@ const Configuracoes = () => {
 
   return (
     <div className="config-container">
+      {/* Botão voltar */}
+      <button className="btn-voltar" onClick={() => navigate("/home")}>
+        ← Voltar para Home
+      </button>
+
       <h2 className="config-title">CONFIGURAÇÕES</h2>
 
       <div className="config-section">

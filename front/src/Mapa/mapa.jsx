@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom'; // ⬅️ Adicionado
 import './mapa.css';
 
 const sensores = [
@@ -12,11 +13,16 @@ const sensores = [
 
 export default function Mapa() {
   const [sensorSelecionado, setSensorSelecionado] = useState(null);
+  const navigate = useNavigate();
 
   const fecharModal = () => setSensorSelecionado(null);
 
   return (
     <div className="mapa-container">
+      <button className="btn-voltar-home" onClick={() => navigate("/home")}>
+        ← Voltar para Home
+      </button>
+
       <h1 className="mapa-titulo">TELA DE MAPA INTERATIVO</h1>
 
       <div className="mapa-wrapper">

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import './historico.css';
 import axios from 'axios';
 import splitTimestamp from './historico_methods';
+import { useNavigate } from 'react-router-dom';
 
 const Historico = () => {
   const [historico, setHistorico] = useState([]);
@@ -11,6 +12,8 @@ const Historico = () => {
   const [sensorFiltro, setSensorFiltro] = useState('');
   const [error, setError] = useState('');
   const [sensoresDisponiveis, setSensoresDisponiveis] = useState([]);
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     axios.get('http://localhost:8000/api/historico-all/')
@@ -29,7 +32,6 @@ const Historico = () => {
   }, []);
 
   const handleFiltrar = () => {
-    console.log(sensorFiltro)
     setError('');
     setLoading(true);
     
@@ -40,12 +42,15 @@ const Historico = () => {
     });
 
     setHistorico(filtrado);
-    console.log(filtrado)
     setLoading(false);
   };
 
   return (
     <div className="historico-container">
+      <button className="btn-voltar" onClick={() => navigate("/home")}>
+        ← Voltar para Home
+      </button>
+
       <header className="historico-header">
         <h1>HISTÓRICO DE MEDIÇÕES</h1>
         <p>Consulte registros anteriores dos sensores</p>

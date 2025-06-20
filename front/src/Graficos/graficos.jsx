@@ -10,8 +10,8 @@ import {
   Tooltip,
   Legend,
   ResponsiveContainer,
-} 
-from "recharts";
+} from "recharts";
+import { useNavigate } from "react-router-dom"; // ⬅ Adicionado
 import "./graficos.css";
 
 const dataLine = [
@@ -40,8 +40,15 @@ export default function Graficos() {
     local: "Todos",
   });
 
+  const navigate = useNavigate(); // ⬅ Adicionado
+
   return (
     <div className="grafico-container">
+      {/* ⬇ Botão Voltar para Home */}
+      <button className="btn-voltar-home" onClick={() => navigate("/home")}>
+        ← Voltar para Home
+      </button>
+
       <h1 className="titulo">GRÁFICOS COMPARATIVOS</h1>
       <p className="subtitulo">
         Gráficos de linhas ou barras comparando temperatura e umidade
@@ -68,22 +75,22 @@ export default function Graficos() {
         ))}
       </div>
 
-        <div className="grafico-card">
-          <h2 className="grafico-titulo">
-            Temperatura <span className="umidade-label">Umidade</span>
-          </h2>
-          <ResponsiveContainer width={900} height={400}>
-            <BarChart data={dataBar}>
-              <CartesianGrid strokeDasharray="3 3" stroke="#444" />
-              <XAxis dataKey="data" stroke="#ccc" />
-              <YAxis stroke="#ccc" />
-              <Tooltip />
-              <Legend />
-              <Bar dataKey="temperatura" fill="#f97316" />
-              <Bar dataKey="umidade" fill="#06b6d4" />
-            </BarChart>
-          </ResponsiveContainer>
-        </div>
+      <div className="grafico-card">
+        <h2 className="grafico-titulo">
+          Temperatura <span className="umidade-label">Umidade</span>
+        </h2>
+        <ResponsiveContainer width={900} height={400}>
+          <BarChart data={dataBar}>
+            <CartesianGrid strokeDasharray="3 3" stroke="#444" />
+            <XAxis dataKey="data" stroke="#ccc" />
+            <YAxis stroke="#ccc" />
+            <Tooltip />
+            <Legend />
+            <Bar dataKey="temperatura" fill="#f97316" />
+            <Bar dataKey="umidade" fill="#06b6d4" />
+          </BarChart>
+        </ResponsiveContainer>
       </div>
+    </div>
   );
 }

@@ -227,3 +227,22 @@
   box-shadow: 0 5px 12px rgba(176, 42, 55, 0.8);
   transform: translateY(-1px);
 }
+.btn-voltar-home {
+  background-color: transparent;
+  border: 2px solid var(--cor-destaque);
+  color: var(--cor-destaque);
+  padding: 10px 16px;
+  font-weight: bold;
+  font-size: 0.95rem;
+  border-radius: var(--borda-radius);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-bottom: 20px;
+}
+
+.btn-voltar-home:hover {
+  background-color: var(--cor-destaque);
+  color: black;
+  transform: scale(1.05);
+}
+

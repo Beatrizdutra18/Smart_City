@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { motion, AnimatePresence } from "framer-motion";
 import { FiPlus, FiX } from "react-icons/fi";
+import { useNavigate } from "react-router-dom"; // ⬅ adicionado
 import './painel.css';
 
 export default function PainelControle() {
@@ -16,6 +17,8 @@ export default function PainelControle() {
   });
   const [editId, setEditId] = useState(null);
   const [mostrarFormulario, setMostrarFormulario] = useState(false);
+
+  const navigate = useNavigate(); // ⬅ adicionado
 
   const fetchSensores = () => {
     axios
@@ -46,7 +49,6 @@ export default function PainelControle() {
   };
 
   const handleSubmit = () => {
-
     if (editId) {
       console.log(formData)
       axios
@@ -92,6 +94,11 @@ export default function PainelControle() {
 
   return (
     <div className="painel-container">
+
+      <button className="btn-voltar-home" onClick={() => navigate("/home")}>
+        ← Voltar para Home
+      </button>
+
       <h1 className="painel-title">PAINEL DE CONTROLE</h1>
 
       <button

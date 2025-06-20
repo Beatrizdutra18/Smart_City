@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import './ambiente.css';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 const Ambiente = () => {
   const [ambientes, setAmbientes] = useState([]);
   const [filteredAmbientes, setFilteredAmbientes] = useState([]);
   const [loading, setLoading] = useState(true);
+  const navigate = useNavigate();
 
   // Filtros
   const [sigFiltro, setSigFiltro] = useState('');
@@ -75,8 +77,6 @@ const Ambiente = () => {
     }
 
     if (editId) {
-      console.log(formData)
-      // Editar ambiente
       axios.put(`http://localhost:8000/api/ambientes/${editId}`, formData)
         .then(() => {
           fetchAmbientes();
@@ -86,7 +86,6 @@ const Ambiente = () => {
           console.error("Erro ao editar ambiente:", err);
         });
     } else {
-      // Cadastrar novo ambiente
       axios.post("http://localhost:8000/api/ambientes/", formData)
         .then(() => {
           fetchAmbientes();
@@ -119,6 +118,10 @@ const Ambiente = () => {
 
   return (
     <div className="ambiente-container">
+       <button className="btn-voltar-home" onClick={() => navigate("/home")}>
+        ← Voltar para Home
+      </button>
+
       <h1 className="ambiente-title">AMBIENTES:</h1>
 
       <div className="ambiente-filtro">

@@ -137,3 +137,21 @@
     -webkit-overflow-scrolling: touch;
   }
 }
+.btn-voltar {
+  background-color: transparent;
+  border: 2px solid var(--cor-destaque);
+  color: var(--cor-destaque);
+  padding: 10px 16px;
+  font-weight: bold;
+  font-size: 0.95rem;
+  border-radius: var(--borda-radius);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-bottom: 20px;
+}
+
+.btn-voltar:hover {
+  background-color: var(--cor-destaque);
+  color: black;
+  transform: scale(1.05);
+}
