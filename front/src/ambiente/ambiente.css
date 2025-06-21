@@ -51,8 +51,7 @@
 }
 
 .ambiente-filtro button {
-  background-color: #0e52cf;
-  border-color: #1995e7;
+  background: linear-gradient(135deg, #1995e7, #023666);
   font-weight: 700;
 }
 
